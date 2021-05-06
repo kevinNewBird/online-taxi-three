@@ -1,9 +1,7 @@
 # 服务相关
-server:
-  port: 7900
 spring:
   application:
-    name: cloud-eureka
+    name: eureka
 
 #eureka server 配置
 eureka:
@@ -11,8 +9,31 @@ eureka:
     fetch-registry: false
     register-with-eureka: false
     service-url:
-      defaultZone: http://localhost:7900/eureka/
-#  instance:
-#    hostname: TODO
-#  server:
-#    enable-self-preservation: true
+      defaultZone: http://localhost:7900/eureka/,http://localhost:7901/eureka/,http://localhost:7902/eureka/
+
+# 分段式: 这种写法就是类似与写了三个配置文件,上面的为共用配置;
+#也就是说每一个分段代表了一个配置文件,即application-7900.yml,application-7901.yml,application-7902.yml
+---
+server:
+  port: 7900
+spring:
+  profiles: 7900
+eureka:
+  instance:
+    hostname: eureka-7900
+---
+server:
+  port: 7901
+spring:
+  profiles: 7901
+eureka:
+  instance:
+    hostname: eureka-7901
+---
+server:
+  port: 7902
+spring:
+  profiles: 7902
+eureka:
+  instance:
+    hostname: eureka-7902
