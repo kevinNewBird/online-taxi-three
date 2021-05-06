@@ -1,0 +1,18 @@
+# 服务相关
+server:
+  port: 7900
+spring:
+  application:
+    name: cloud-eureka
+
+#eureka server 配置
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://localhost:7900/eureka/
+#  instance:
+#    hostname: TODO
+#  server:
+#    enable-self-preservation: true
