@@ -10,6 +10,17 @@ eureka:
     register-with-eureka: false
     service-url:
       defaultZone: http://localhost:7900/eureka/,http://localhost:7901/eureka/,http://localhost:7902/eureka/
+  #自我保护关闭和触发条件百分比阈值
+  server:
+    enable-self-preservation: false
+    # 不可用服务比例达到多少后,保护可用服务
+    renewal-percent-threshold: 0.85
+    # 清理无效节点的时间间隔
+    eviction-interval-timer-in-ms: 1000
+    # 多级缓存,关闭readOnly注册表 ,直接从readWriteCacheMap获取
+    use-read-only-response-cache: false
+    # 二级缓存 readWriteCacheMap 定时更新到三级缓存 readOnly 的时间间隔为30秒, 减少这个时间可以有效保证服务的拉取速度
+    response-cache-update-interval-ms: 1000
 
 # 分段式: 这种写法就是类似与写了三个配置文件,上面的为共用配置;
 #也就是说每一个分段代表了一个配置文件,即application-7900.yml,application-7901.yml,application-7902.yml
@@ -20,6 +31,7 @@ spring:
   profiles: 7900
 eureka:
   instance:
+    # 本地环境需要在hosts中配置,映射到ip上
     hostname: eureka-7900
 ---
 server:
@@ -28,6 +40,7 @@ spring:
   profiles: 7901
 eureka:
   instance:
+    # 本地环境需要在hosts中配置,映射到ip上
     hostname: eureka-7901
 ---
 server:
@@ -36,4 +49,5 @@ spring:
   profiles: 7902
 eureka:
   instance:
+    # 本地环境需要在hosts中配置,映射到ip上
     hostname: eureka-7902
