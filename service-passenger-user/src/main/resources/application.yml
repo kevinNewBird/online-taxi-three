@@ -1,0 +1,23 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: service-passenger-user
+  profiles:
+    active: database
+
+# eureka client
+eureka:
+  client:
+    enabled: true
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      # 默认给第一个注册, 第一个失败向第二个注册,以此类推(也就是说只会向一个地址注册). 默认只会重试3个地址, 第4+个无效
+      # com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute
+      defaultZone: http://localhost:7900/eureka/,http://localhost:7901/eureka/,http://localhost:7902/eureka/
+    # 注册列表拉取间隔
+    registry-fetch-interval-seconds: 30
+  instance:
+    # 续约间隔
+    lease-renewal-interval-in-seconds: 30

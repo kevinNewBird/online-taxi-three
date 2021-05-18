@@ -7,27 +7,17 @@
         <groupId>com.mashibing</groupId>
         <version>1.0</version>
     </parent>
-    <artifactId>api-passenger</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>api-passenger</name>
+    <artifactId>internal-common</artifactId>
+    <version>1.0</version>
+    <name>internal-common</name>
     <description>Demo project for Spring Boot</description>
     <properties>
-
+        <java.version>1.8</java.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.mashibing</groupId>
-            <artifactId>internal-common</artifactId>
-            <version>1.0</version>
         </dependency>
 
         <dependency>
@@ -36,21 +26,11 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- openfeign :远程调用-->
+        <!-- jwt-->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <!--feign客户端调用, get请求可能会被post的依赖jar处理解决方案-->
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-httpclient</artifactId>
-        </dependency>
-
-        <!--json-->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.0</version>
         </dependency>
 
         <dependency>
@@ -59,17 +39,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <build>
         <plugins>

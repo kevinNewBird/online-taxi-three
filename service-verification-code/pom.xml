@@ -7,9 +7,9 @@
         <groupId>com.mashibing</groupId>
         <version>1.0</version>
     </parent>
-    <artifactId>api-passenger</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>api-passenger</name>
+    <artifactId>service-verification-code</artifactId>
+    <version>1.0</version>
+    <name>service-verification-code</name>
     <description>Demo project for Spring Boot</description>
     <properties>
 
@@ -24,6 +24,14 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
+        <!--redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <!--redis-->
+
+        <!--引入二方库-->
         <dependency>
             <groupId>com.mashibing</groupId>
             <artifactId>internal-common</artifactId>
@@ -36,23 +44,10 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- openfeign :远程调用-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <!--feign客户端调用, get请求可能会被post的依赖jar处理解决方案-->
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-httpclient</artifactId>
-        </dependency>
-
-        <!--json-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: service-verification-code
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+server:
+  port: 8082
+
+
+# eureka client
+eureka:
+  client:
+    enabled: true
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:7900/eureka/,http://localhost:7901/eureka/,http://localhost:7902/eureka/
+    # 注册列表拉取间隔
+    registry-fetch-interval-seconds: 20
+  # 心跳上报间隔
+  instance:
+    lease-renewal-interval-in-seconds: 20
