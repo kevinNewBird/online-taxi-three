@@ -21,6 +21,9 @@
         <module>internal-common</module>
         <module>service-verification-code</module>
         <module>service-sms</module>
+        <module>service-order</module>
+        <module>service-valuation</module>
+        <module>service-map</module>
     </modules>
 
     <properties>
@@ -50,6 +53,13 @@
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${spring.boot.mybatis}</version>
             </dependency>
+
+            <!-- 分页插件-->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>1.2.13</version>
+            </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
@@ -59,6 +69,11 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>3.2.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

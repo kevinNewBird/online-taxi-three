@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC  "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mashibing.serviceorder.dao.ServiceTypeMapper">
+    <resultMap id="BaseResultMap" type="com.mashibing.internalcommon.entity.serviceorder.ServiceType">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="service_type_name" jdbcType="VARCHAR" property="serviceTypeName"/>
+        <result column="service_type_status" jdbcType="VARCHAR" property="serviceTypeStatus"/>
+        <result column="is_use" jdbcType="INTEGER" property="isUse"/>
+        <result column="operator_id" jdbcType="INTEGER" property="operatorId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        ,service_type_name,service_type_status,is_use,operator_id,create_time,update_time
+    </sql>
+
+    <!-- 通过主键查询服务类型 -->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from service_order_servicetype
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="findByPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from service_order_servicetype
+    </select>
+
+    <!-- 保存 -->
+    <insert id="insert" parameterType="com.mashibing.internalcommon.entity.serviceorder.ServiceType">
+        <!--返回的主键id必须通过getId()获取-->
+        <selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+        insert into
+        service_order_servicetype(service_type_name,service_type_status,is_use,operator_id,create_time,update_time)
+        values (
+        #{serviceTypeName,jdbcType=VARCHAR},
+        #{serviceTypeStatus,jdbcType=INTEGER},
+        #{isUse,jdbcType=CHAR},
+        #{operatorId,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <!--增量保存-->
+    <insert id="insertSelective" parameterType="com.mashibing.internalcommon.entity.serviceorder.ServiceType"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into service_order_servicetype
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="serviceTypeName != null">
+                service_type_name,
+            </if>
+            <if test="serviceTypeStatus != null">
+                service_type_status,
+            </if>
+            <if test="isUse != null">
+                is_use,
+            </if>
+            <if test="operatorId != null">
+                operator_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            <if test="serviceTypeName != null">
+                #{serviceTypeName,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceTypeStatus != null">
+                #{serviceTypeStatus,jdbcType=INTEGER},
+            </if>
+            <if test="isUse != null">
+                #{isUse,jdbcType=CHAR},
+            </if>
+            <if test="operatorId != null">
+                #{operatorId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <!--根据主键删除-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from service_order_servicetype
+        where id = #{id,jdbcType = INTEGER}
+    </delete>
+
+    <!--更新(主键)-->
+    <update id="updateByPrimaryKey" parameterType="com.mashibing.internalcommon.entity.serviceorder.ServiceType">
+        update service_order_servicetype
+        set service_type_name   = #{serviceTypeName,jdbcType = VARCHAR},
+            service_type_status = #{serviceTypeStatus,jdbcType = INTEGER},
+            is_use              = #{isUse,jdbcType = CHAR},
+            operator_id         = #{operatorId,jdbcType = INTEGER},
+            create_time         = #{createTime,jdbcType = TIMESTAMP},
+            update_time         = #{updateTime,jdbcType = TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!--增量更新(主键)-->
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.mashibing.internalcommon.entity.serviceorder.ServiceType">
+        update service_order_servicetype
+        <set>
+            <if test="serviceTypeName != null">
+                service_type_name = #{serviceTypeName,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceTypeStatus !=null ">
+                service_type_status = #{serviceTypeStatus,jdbcType=INTEGER},
+            </if>
+            <if test="isUse != null">
+                is_use = #{isUse,jdbcType=CHAR}
+            </if>
+            <if test="operatorId != null">
+                operator_id = #{operatorId,jdbcType=INTEGER}
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+</mapper>

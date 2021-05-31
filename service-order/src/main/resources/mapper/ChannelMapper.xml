@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mashibing.serviceorder.dao.ChannelMapper">
+    <resultMap id="BaseResultMap" type="com.mashibing.internalcommon.entity.serviceorder.Channel">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="channel_name" jdbcType="VARCHAR" property="channelName"/>
+        <result column="channel_status" jdbcType="INTEGER" property="channelStatus"/>
+        <result column="operator_id" jdbcType="INTEGER" property="operatorId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        ,channel_name,channel_status,operator_id,create_time,update_time
+    </sql>
+
+    <!--根据主键查询渠道-->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from service_order_channel
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <!--保存-->
+    <insert id="insert" parameterType="com.mashibing.internalcommon.entity.serviceorder.Channel"
+            keyProperty="id" useGeneratedKeys="true">
+        insert into service_order_channel(channel_name, channel_status, operator_id, create_time, update_time)
+        values (#{channelName,jdbcType=VARCHAR}, #{channelStatus,jdbcType=INTEGER}, #{operatorId,jdbcType=INTEGER},
+                #{createTime,jdbcType=TIMESTAMP}), #{updateTime,jdbcType=TIMESTAMP}
+    </insert>
+
+    <!--增量保存-->
+    <insert id="insertSelective" parameterType="com.mashibing.internalcommon.entity.serviceorder.Channel"
+            keyProperty="id" useGeneratedKeys="true">
+        insert into service_order_channel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="channelName != null">
+                channel_name,
+            </if>
+            <if test="channelStatus != null">
+                channel_status,
+            </if>
+            <if test="operatorId != null">
+                operator_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            <if test="channelName != null">
+                #{channelName,jdbcType=VARCHAR},
+            </if>
+            <if test="channelStatus != null">
+                #{channelStatus,jdbcType=INTEGER},
+            </if>
+            <if test="operatorId != null">
+                #{operatorId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+
+    <!--更新(主键)-->
+    <update id="updateByPrimaryKey" parameterType="com.mashibing.internalcommon.entity.serviceorder.Channel">
+        update
+            service_order_channel
+        set channel_name=#{channelName,jdbcType=VARCHAR},
+            channel_status=#{channelStatus,jdbcType=INTEGER},
+            operator_id=#{operatorId,jdbcType=INTEGER},
+            create_time=#{createTime,jdbcType=TIMESTAMP},
+            update_time=#{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!--增量更新(主键)-->
+    <update id="updateByPrimaryKeySelective" parameterType="com.mashibing.internalcommon.entity.serviceorder.Channel">
+        update
+        service_order_channel
+        <set>
+            <if test="channelName != null">
+                channel_name=#{channelName,jdbcType=VARCHAR},
+            </if>
+            <if test="channelStatus != null">
+                channel_status=#{channelStatus,jdbcType=INTEGER},
+            </if>
+            <if test="operatorId != null">
+                operator_id=#{operatorId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time=#{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time=#{updateTime,jdbcType=TIMESTAMP}
+            </if>
+        </set>
+    </update>
+
+    <!--删除-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from service_order_channel
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+</mapper>

@@ -1,0 +1,26 @@
+server:
+  port: 8084
+spring:
+  application:
+      name: service-order
+  profiles:
+    active: database,config
+
+# eureka client
+eureka:
+  client:
+    enabled: true
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:7900/eureka/,http://localhost:7901/eureka/,http://localhost:7902/eureka/
+    # 拉取注册列表间隔
+    registry-fetch-interval-seconds: 20
+  # 心跳上报间隔
+  instance:
+    lease-renewal-interval-in-seconds: 20
+
+
+
+
+

@@ -15,7 +15,7 @@ import java.io.Serializable;
  ***********************/
 @Data
 //chain含义为链式,设置为true,则setter方法返回当前对象, 做链式塞值处理
-//@Accessors(chain = true)
+@Accessors(chain = true)
 //压制所有异常
 @SuppressWarnings("all")
 @Builder //类构建器 , 类似Accessors注解

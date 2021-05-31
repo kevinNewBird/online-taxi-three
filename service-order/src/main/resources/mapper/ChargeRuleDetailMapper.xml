@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mashibing.serviceorder.dao.ChargeRuleDetailMapper">
+    <resultMap id="BaseResultMap" type="com.mashibing.internalcommon.entity.serviceorder.ChargeRuleDetail">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="rule_id" jdbcType="INTEGER" property="ruleId"/>
+        <result column="start" jdbcType="INTEGER" property="start"/>
+        <result column="end" jdbcType="INTEGER" property="end"/>
+        <result column="per_kilo_price" jdbcType="DECIMAL" property="perKiloPrice"/>
+        <result column="per_minute_price" jdbcType="DECIMAL" property="perMinutePrice"/>
+        <result column="is_delete" jdbcType="INTEGER" property="isDelete"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        ,rule_id,start,
+        end
+        ,per_kilo_price,per_minute_price,is_delete,create_time,update_time
+    </sql>
+
+    <!--根据RuleId查询 计费规则时间段表 -->
+    <select id="selectByRuleId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from service_order_charge_rule_detail
+        where rule_id=#{ruleId,jdbcType=INTEGER}
+        create table service_order_charge_rule_detail
+        (
+        rule_id int null
+        );
+
+    </select>
+
+    <!--保存-->
+    <insert id="insert" parameterType="ChargeRuleDetail"
+            keyProperty="id" useGeneratedKeys="true">
+        insert into service_order_charge_rule_detail( rule_id, start, end, per_kilo_price
+                                                    , per_minute_price, is_delete, create_time
+                                                    , update_time)
+        values ( #{ruleId,jdbcType=INTEGER}, #{start,jdbcType=INTEGER}, #{end,jdbcType=INTEGER}
+               , #{perKiloPrice,jdbcType=DECIMAL}, #{perMinutePrice,jdbcType=DECIMAL}
+               , #{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+                 #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <!--增量保存-->
+    <insert id="insertSelective" parameterType="ChargeRuleDetail"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into service_order_charge_rule_detail
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="ruleId != null">
+                #{ruleId,jdbcType=INTEGER},
+            </if>
+            <if test="start != null">
+                #{start,jdbcType=INTEGER},
+            </if>
+            <if test="end != null">
+                #{end,jdbcType=INTEGER},
+            </if>
+            <if test="perKiloPrice != null">
+                #{perKiloPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="perMinutePrice != null">
+                #{perMinutePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <!--更新(主键)-->
+    <update id="updateByPrimaryKey" parameterType="ChargeRuleDetail">
+        update
+            service_order_charge_rule_detail
+        set rule_id          = #{ruleId,jdbcType=INTEGER},
+            start            = #{start,jdbcType=INTEGER},
+            end              = #{end,jdbcType=INTEGER},
+            per_kilo_price   = #{perKiloPrice,jdbcType=DECIMAL},
+            per_minute_price = #{perMinutePrice,jdbcType=DECIMAL},
+            is_delete        = #{isDelete,jdbcType=INTEGER},
+            create_time      = #{createTime,jdbcType=TIMESTAMP},
+            update_time      = #{updateTime,jdbcType=TIMESTAMP}
+    </update>
+
+    <!--增量更新(主键)-->
+    <update id="updateByPrimaryKeySelective" parameterType="ChargeRuleDetail">
+        update service_order_charge_rule_detail
+        <set>
+            <if test="ruleId != null">
+                rule_id=#{ruleId,jdbcType=INTEGER},
+            </if>
+            <if test="start != null">
+                start=#{start,jdbcType=INTEGER},
+            </if>
+            <if test="end != null">
+                end = #{end,jdbcType=INTEGER},
+            </if>
+            <if test="perKiloPrice != null">
+                per_kilo_price = #{perKiloPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="perMinutePrice != null">
+                per_minute_price = #{perMinutePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP}
+            </if>
+        </set>
+    </update>
+
+
+</mapper>
